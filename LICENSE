@@ -1,0 +1,73 @@
+Business Source-Available License
+
+Version 1.0
+
+Copyright © Kyro
+
+## 1. Acceptance
+
+By using, copying, or modifying this software, you agree to the terms of this license.
+
+## 2. Grant of License
+
+Subject to the restrictions below, Kyro grants you a non-exclusive, non-transferable, non-sublicensable license to:
+
+View the source code
+
+Use the software for internal business purposes
+
+Modify the software only for internal use
+
+## 3. Restrictions
+
+You may not, without prior written permission from Kyro:
+
+Provide the software as a managed service, hosted service, or SaaS to third parties.
+
+Distribute, sublicense, sell, or otherwise make the software available to third parties.
+
+Use modified versions of the software in production without providing written notice to Kyro describing the changes.
+
+Remove, obscure, or alter licensing, copyright, or attribution notices.
+
+Circumvent, disable, or remove license enforcement mechanisms or technical limitations.
+
+Create or distribute derivative works that compete with the original software.
+
+## 4. Modification Notice Requirement
+
+Any modification to the software must be:
+
+Clearly documented
+
+Retained internally
+
+Made available to Kyro upon request
+
+Unauthorized or undisclosed modifications constitute a license violation.
+
+## 5. Ownership
+
+The software and all intellectual property rights remain the exclusive property of Kyro.
+This license does not grant ownership or any rights beyond those explicitly stated.
+
+## 6. Patents
+
+Kyro grants a limited patent license only as necessary to use the software as permitted under this license.
+
+## 7. Termination
+
+This license terminates automatically and immediately if you violate any of its terms.
+Upon termination, you must cease all use of the software and destroy all copies.
+
+## 8. Disclaimer of Warranty
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED.
+
+## 9. Limitation of Liability
+
+IN NO EVENT SHALL Kyro BE LIABLE FOR ANY DAMAGES ARISING FROM USE OF THE SOFTWARE.
+
+## 10. Governing Law
+
+This license is governed by the laws of US/UK.
