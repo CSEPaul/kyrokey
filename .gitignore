@@ -30,3 +30,22 @@ go.work.sum
 # Editor/IDE
 # .idea/
 # .vscode/
+
+# env file
+*.env
+
+# log file
+*.log
+
+#badgerdirectory
+dbbadger/
+db/
+edl/
+*.vlog
+*.mem
+*.sst
+*.db
+
+# Editor/IDE
+.idea/
+.vscode/
