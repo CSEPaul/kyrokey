@@ -1,11 +1,11 @@
-package keychain
+package kc_cli
 
 import (
 	"github.com/spf13/cobra"
 )
 
 // rrCmd represents the rr command
-var KeyChainCmd = &cobra.Command{
+var KCCliCmd = &cobra.Command{
 	Use:     "k",
 	Short:   "Write a secret to keychain",
 	Example: `k <secretpass>`,
@@ -17,6 +17,6 @@ var KeyChainCmd = &cobra.Command{
 
 func init() {
 
-	KeyChainCmd.GroupID = "config"
+	KCCliCmd.GroupID = "cli"
 
 }
