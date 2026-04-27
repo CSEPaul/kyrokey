@@ -9,6 +9,16 @@ import (
 	"go.uber.org/zap"
 )
 
+func KcGetCmd(service string, user string) string {
+	var secret string
+
+	secret, err := libs.KeyChainGet(service, user)
+	if err != nil {
+		zap.S().Error("failed to get secret: %v", err)
+	}
+	return secret
+}
+
 // rrCmd represents the rr command
 var KCCliGetCmd = &cobra.Command{
 	Use:     "get",
@@ -19,12 +29,8 @@ var KCCliGetCmd = &cobra.Command{
 
 		service, _ := cmd.Flags().GetString("service")
 		user, _ := cmd.Flags().GetString("user")
-		var secret string
 
-		secret, err := libs.KeyChainGet(service, user)
-		if err != nil {
-			zap.S().Error("failed to get secret: %v", err)
-		}
+		secret := KcGetCmd(service, user)
 
 		fmt.Println("secret:", secret)
 
