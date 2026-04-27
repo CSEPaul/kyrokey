@@ -10,6 +10,29 @@ import (
 	"go.uber.org/zap"
 )
 
+func KcSetCmd(service string, user string, secret string) {
+	comment, err := libs.KeyChainSet(service, user, secret)
+	if err != nil {
+		zap.S().Error("failed to set secret: %v", err)
+	}
+
+	fmt.Println(comment)
+
+	//write the service name and user to a sqlite db to track kc_cli entries
+
+	db, err := libs.KeychainOpenDB(libs.KeyChainDB)
+	if err != nil {
+		zap.S().Error(err)
+	}
+	defer db.Close()
+
+	if err := libs.KeychainDBEnsureSchema(db); err != nil {
+		zap.S().Error(err)
+	}
+
+	_ = libs.KeychainDBSaveSecret(db, service, user)
+}
+
 var KCCliSetCmd = &cobra.Command{
 	Use:     "set",
 	Short:   "Write a secret to keychain",
@@ -22,27 +45,7 @@ var KCCliSetCmd = &cobra.Command{
 		secret, _ := cmd.Flags().GetString("secret")
 
 		// Write the secret to the kc_cli
-
-		comment, err := libs.KeyChainSet(service, user, secret)
-		if err != nil {
-			zap.S().Error("failed to set secret: %v", err)
-		}
-
-		fmt.Println(comment)
-
-		//write the service name and user to a sqlite db to track kc_cli entries
-
-		db, err := libs.KeychainOpenDB(libs.KeyChainDB)
-		if err != nil {
-			zap.S().Error(err)
-		}
-		defer db.Close()
-
-		if err := libs.KeychainDBEnsureSchema(db); err != nil {
-			zap.S().Error(err)
-		}
-
-		_ = libs.KeychainDBSaveSecret(db, service, user)
+		KcSetCmd(service, user, secret)
 
 	},
 }

@@ -111,6 +111,7 @@ func KeychainDBListServicesUsers(db *sql.DB) ([][2]string, error) {
 	}
 	defer rows.Close()
 
+	// Array of exactly 2 strings - to prevent anyone trying to access the password
 	var out [][2]string
 	for rows.Next() {
 		var service, user string
