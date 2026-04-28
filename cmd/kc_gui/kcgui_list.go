@@ -22,30 +22,34 @@ func (ui *UI) ShowList() {
 
 		// create each cell
 		func() fyne.CanvasObject {
-			return widget.NewLabel("")
+
+			label := widget.NewLabel("")
+			return container.NewPadded(label)
 		},
 
 		// update cell content
 		func(id widget.TableCellID, cell fyne.CanvasObject) {
-
-			label := cell.(*widget.Label)
+			padded := cell.(*fyne.Container)
+			label := padded.Objects[0].(*widget.Label)
 
 			// Header row
 			if id.Row == 0 {
+				label.TextStyle = fyne.TextStyle{Bold: true}
 				if id.Col == 0 {
-					label.SetText("Service")
-				} else {
 					label.SetText("User")
+				} else {
+					label.SetText("Service")
 				}
+
 				return
 			}
 
 			entry := entries[id.Row-1]
 
 			if id.Col == 0 {
-				label.SetText(entry[0]) // service
+				label.SetText("    " + entry[1]) // service
 			} else {
-				label.SetText(entry[1]) // user
+				label.SetText("    " + entry[0]) // user
 			}
 		},
 	)
