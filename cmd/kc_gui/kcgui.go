@@ -1,8 +1,6 @@
 package kc_gui
 
 import (
-	"fmt"
-
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 	"fyne.io/fyne/v2/container"
@@ -40,11 +38,11 @@ func (ui *UI) ShowHome() {
 		}),
 
 		widget.NewButton("DeleteDB", func() {
-			fmt.Println("delete db")
+			ui.ShowDeleteDb()
 		}),
 
 		widget.NewButton("DeleteSecret", func() {
-			fmt.Println("delete secret")
+			ui.ShowDeleteSecret()
 		}),
 	)
 

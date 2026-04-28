@@ -36,7 +36,7 @@ func KcSetCmd(service string, user string, secret string) {
 var KCCliSetCmd = &cobra.Command{
 	Use:     "set",
 	Short:   "Write a secret to keychain",
-	Example: `set -s myapp -u api_key_name -S secretpass`,
+	Example: `set -s myapp -u username -S secretpass`,
 
 	Run: func(cmd *cobra.Command, args []string) {
 

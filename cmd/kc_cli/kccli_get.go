@@ -19,11 +19,10 @@ func KcGetCmd(service string, user string) string {
 	return secret
 }
 
-// rrCmd represents the rr command
 var KCCliGetCmd = &cobra.Command{
 	Use:     "get",
 	Short:   "Get a secret from the keychain",
-	Example: `get -s myapp -u api_key`,
+	Example: `get -s myapp -u username`,
 
 	Run: func(cmd *cobra.Command, args []string) {
 

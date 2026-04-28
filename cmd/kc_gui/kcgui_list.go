@@ -13,7 +13,6 @@ import (
 func (ui *UI) ShowList() {
 
 	entries := kc_cli.KcListCmd()
-
 	table := widget.NewTable(
 
 		// rows + columns

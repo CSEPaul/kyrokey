@@ -23,7 +23,6 @@ func KcListCmd() [][2]string {
 	return entries
 }
 
-// rrCmd represents the rr command
 var KCCliListCmd = &cobra.Command{
 	Use:     "list",
 	Short:   "List services and users from local keychain db to this app only",
