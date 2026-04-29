@@ -10,27 +10,54 @@ import (
 	"go.uber.org/zap"
 )
 
-func KcSetCmd(service string, user string, secret string) {
-	comment, err := libs.KeyChainSet(service, user, secret)
-	if err != nil {
-		zap.S().Error("failed to set secret: %v", err)
-	}
+func KcSetCmd(service string, user string, secret string) error {
 
-	fmt.Println(comment)
-
-	//write the service name and user to a sqlite db to track kc_cli entries
-
+	/*
+		Check the keychaindb to see if that service and user already exist
+		If they do the return error - of already used credientials
+	*/
 	db, err := libs.KeychainOpenDB(libs.KeyChainDB)
 	if err != nil {
 		zap.S().Error(err)
+		return err
 	}
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			zap.S().Error(err)
+		}
+	}()
 
 	if err := libs.KeychainDBEnsureSchema(db); err != nil {
 		zap.S().Error(err)
+		return err
+	}
+	exists, err := libs.KeychainDBCredentialExist(db, user, service)
+	if err != nil {
+		zap.S().Error(err)
+		return nil
+	}
+	if exists {
+		zap.S().Info("Using existing credentials for service " + service)
+		// stop this operation, return control to GUI/CLI
+		return fmt.Errorf("service/user already exists")
 	}
 
-	_ = libs.KeychainDBSaveSecret(db, service, user)
+	// Set the Secret in the real Keychain
+	comment, err := libs.KeyChainSet(service, user, secret)
+	if err != nil {
+		zap.S().Error("failed to set secret: %v", err)
+		// exit the app to stop the adding to the database
+		return err
+	}
+	fmt.Println(comment)
+
+	//write the service name and user to a sqlite db to track kc_cli entries
+	if err := libs.KeychainDBSaveSecret(db, service, user); err != nil {
+		return err
+	}
+
+	return nil
+
 }
 
 var KCCliSetCmd = &cobra.Command{
@@ -45,7 +72,10 @@ var KCCliSetCmd = &cobra.Command{
 		secret, _ := cmd.Flags().GetString("secret")
 
 		// Write the secret to the kc_cli
-		KcSetCmd(service, user, secret)
+		err := KcSetCmd(service, user, secret)
+		if err != nil {
+			zap.S().Error(err)
+		}
 
 	},
 }

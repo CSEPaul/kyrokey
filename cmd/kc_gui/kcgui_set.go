@@ -4,6 +4,7 @@ import (
 	"kyrokey/cmd/kc_cli"
 
 	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/widget"
 )
 
@@ -30,9 +31,27 @@ func (ui *UI) ShowSet() {
 		service := serviceEntry.Text
 
 		// call your Cobra/business logic here
-		kc_cli.KcSetCmd(service, user, secret)
+		err := kc_cli.KcSetCmd(service, user, secret)
+		if err != nil {
+			status.SetText(err.Error())
+			return
+		}
 
 		status.SetText("Saved successfully")
+	})
+	resetBtn := widget.NewButton("Reset", func() {
+		dialog.ShowConfirm(
+			"Clear Form",
+			"Reset all fields?",
+			func(ok bool) {
+				if ok {
+					userEntry.SetText("")
+					secretEntry.SetText("")
+					serviceEntry.SetText("")
+				}
+			},
+			ui.window,
+		)
 	})
 
 	backBtn := widget.NewButton("Back", func() {
@@ -43,6 +62,7 @@ func (ui *UI) ShowSet() {
 		widget.NewLabel("Set Secret"),
 		form,
 		saveBtn,
+		resetBtn,
 		backBtn,
 		status,
 	)

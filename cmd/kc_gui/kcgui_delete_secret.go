@@ -34,7 +34,8 @@ func (ui *UI) ShowDeleteSecret() {
 	})
 
 	screen := container.NewVBox(
-		widget.NewLabel("Get Secret"),
+		widget.NewLabel("Delete Secret"),
+		widget.NewLabel("Please Enter the User and Service related to the Secret"),
 		form,
 		delBtn,
 		result,

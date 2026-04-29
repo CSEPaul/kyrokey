@@ -104,6 +104,25 @@ func KeychainDBSaveSecret(db *sql.DB, service, username string) error {
 	return err
 }
 
+func KeychainDBCredentialExist(db *sql.DB, username, service string) (bool, error) {
+	var exists bool
+
+	err := db.QueryRow(`
+		SELECT EXISTS(
+			SELECT 1
+			FROM credentials
+			WHERE service = ?
+			  AND username = ?
+		)
+	`, service, username).Scan(&exists)
+
+	if err != nil {
+		return false, err
+	}
+
+	return exists, nil
+}
+
 func KeychainDBListServicesUsers(db *sql.DB) ([][2]string, error) {
 	rows, err := db.Query(`SELECT service, username FROM credentials`)
 	if err != nil {

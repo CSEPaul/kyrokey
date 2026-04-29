@@ -22,7 +22,12 @@ func KcDeleteSecretCmd(service string, user string) string {
 	if err != nil {
 		zap.S().Error(err)
 	}
-	defer db.Close()
+	defer func() {
+		if err := db.Close(); err != nil {
+			zap.S().Error(err)
+		}
+	}()
+
 	err = libs.KeychainDBDeleteSecret(db, service, user)
 	if err != nil {
 		zap.S().Error(err)
