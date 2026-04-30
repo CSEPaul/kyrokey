@@ -8,9 +8,9 @@ import (
 
 func TestFileExists(t *testing.T) {
 	tests := map[string]bool{
-		"file.go": true,
-		"aaa.bbb": false,
-		"/":       false,
+		"libs_file.go": true,
+		"aaa.bbb":      false,
+		"/":            false,
 	}
 	for fpath, mustExist := range tests {
 		exist := FileExists(fpath)

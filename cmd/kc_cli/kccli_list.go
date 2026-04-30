@@ -1,9 +1,10 @@
 package kc_cli
 
 import (
-	"fmt"
 	"kyrokey/libs"
+	"os"
 
+	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )
@@ -31,10 +32,15 @@ var KCCliListCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		entries := KcListCmd()
 
-		fmt.Println("Stored Keychain Entries:")
+		t := table.NewWriter()
+		t.SetOutputMirror(os.Stdout)
+		t.AppendHeader(table.Row{"Service", "User"})
+
 		for _, entry := range entries {
-			fmt.Printf("- service: %s, user: %s\n", entry[0], entry[1])
+			t.AppendRow(table.Row{entry[0], entry[1]})
 		}
+
+		t.Render()
 
 	},
 }

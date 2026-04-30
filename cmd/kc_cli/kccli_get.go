@@ -1,10 +1,11 @@
 package kc_cli
 
 import (
-	"fmt"
+	"os"
 
 	"kyrokey/libs"
 
+	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )
@@ -31,7 +32,11 @@ var KCCliGetCmd = &cobra.Command{
 
 		secret := KcGetCmd(service, user)
 
-		fmt.Println("secret:", secret)
+		t := table.NewWriter()
+		t.SetOutputMirror(os.Stdout)
+		t.AppendHeader(table.Row{"Secret"})
+		t.AppendRow(table.Row{secret})
+		t.Render()
 
 	},
 }
