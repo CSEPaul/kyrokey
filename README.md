@@ -26,22 +26,22 @@ From the project root:
 - Build binary:
   - `go build -o kyro .`
 - Then use:
-  - `./kyro --help`
+  - `./kyrokey --help`
 
 ## Command overview
 Top-level commands:
-- `kyro k` → CLI secret management commands
-- `kyro g` → Launch GUI secret manager
-- `kyro completion` → Generate shell completion scripts
-- `kyro help` → Show command help
+- `kyrokey k` → CLI secret management commands
+- `kyrokey g` → Launch GUI secret manager
+- `kyrokey completion` → Generate shell completion scripts
+- `kyrokey help` → Show command help
 
-### CLI commands (`kyro k`)
+### CLI commands (`kyrokey k`)
 
 #### 1) Set a secret
 Purpose: Save a secret to keychain and register `(service, user)` in SQLite tracker.
 
 Example:
-- `kyro k set -s github -u paul -S my_token_value`
+- `kyrokey k set -s github -u paul -S my_token_value`
 
 Flags:
 - `-s, --service` (required): service name
@@ -52,7 +52,7 @@ Flags:
 Purpose: Read a secret from keychain for a given `(service, user)`.
 
 Example:
-- `kyro k get -s github -u paul`
+- `kyrokey k get -s github -u paul`
 
 Flags:
 - `-s, --service` (required): service name
@@ -62,13 +62,13 @@ Flags:
 Purpose: List all tracked `(service, user)` pairs from the local SQLite tracker.
 
 Example:
-- `kyro k list`
+- `kyrokey k list`
 
 #### 4) Delete one secret
 Purpose: Delete a secret from keychain and remove that `(service, user)` row from tracker DB.
 
 Example:
-- `kyro k del -s github -u paul`
+- `kyrokey k del -s github -u paul`
 
 Flags:
 - `-s, --service`: service name
@@ -78,15 +78,15 @@ Flags:
 Purpose: Remove the local tracker DB file (`./conf/keychain_entries.db`) only.
 
 Example:
-- `kyro k deldb --Confirm Confirm`
-- or: `kyro k deldb -C C`
+- `kyrokey k deldb --Confirm Confirm`
+- or: `kyrokey k deldb -C C`
 
 Flags:
 - `-C, --Confirm` (required): must be `Confirm` or `C` to proceed
 
 ## GUI mode
 Run:
-- `kyro g`
+- `kyrokey g`
 
 The GUI includes screens for:
 - Set secret
@@ -97,13 +97,13 @@ The GUI includes screens for:
 
 ## Typical workflow example
 1. Save a secret:
-   - `kyro k set -s aws -u deploy-user -S super-secret-value`
+   - `kyrokey k set -s aws -u deploy-user -S super-secret-value`
 2. Verify it exists:
-   - `kyro k list`
+   - `kyrokey k list`
 3. Retrieve it:
-   - `kyro k get -s aws -u deploy-user`
+   - `kyrokey k get -s aws -u deploy-user`
 4. Remove it when no longer needed:
-   - `kyro k del -s aws -u deploy-user`
+   - `kyrokey k del -s aws -u deploy-user`
 
 ## Notes
 - Secrets are stored in the OS keychain; this app only tracks service/user metadata in SQLite.

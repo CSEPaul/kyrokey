@@ -8,7 +8,7 @@ import (
 var KCCliCmd = &cobra.Command{
 	Use:     "k",
 	Short:   "Write a secret to keychain",
-	Example: `k <secretpass>`,
+	Example: `k`,
 
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()

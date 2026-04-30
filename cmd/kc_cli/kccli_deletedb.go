@@ -1,6 +1,7 @@
 package kc_cli
 
 import (
+	"fmt"
 	"kyrokey/libs"
 
 	"github.com/spf13/cobra"
@@ -13,22 +14,22 @@ func KcDeleteDBCmd(confirm string) string {
 		zap.S().Error("Error getting db file path:", err.Error())
 	}
 
-	comment := "Secret Deleted"
+	comment := "Secret DB Deleted"
 	comment2 := "Write the `Confirm` flag"
 	switch confirm {
-	case "Confirm":
+	case "Confirm", "C":
 		err := libs.KeyChainDeleteDBFile(dir)
 		if err != nil {
 			zap.S().Error("Error deleting db file:", err.Error())
+		}
+		// check if db is present - keychain_entries.db
+		exists := libs.FileExists(libs.KeyChainDB)
+		if exists {
+			statement := "DB Not Deleted"
+			return statement
 		}
 		return comment
-	case "C":
-		err := libs.KeyChainDeleteDBFile(dir)
-		if err != nil {
-			zap.S().Error("Error deleting db file:", err.Error())
-		}
 
-		return comment
 	default:
 		println("You must use the Confirm flag to delete the db file for security.")
 		return comment2
@@ -44,7 +45,8 @@ var KCCliDeleteDBCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		confirm, _ := cmd.Flags().GetString("Confirm")
-		KcDeleteDBCmd(confirm)
+		result := KcDeleteDBCmd(confirm)
+		fmt.Println(result)
 
 	},
 }

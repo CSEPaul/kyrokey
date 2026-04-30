@@ -39,7 +39,7 @@ func KcDeleteSecretCmd(service string, user string) string {
 var KCCliDeleteCmd = &cobra.Command{
 	Use:     "del",
 	Short:   "Delete a secret for a service and user",
-	Example: `kc_cli del -s myapp -u username`,
+	Example: `del -s myapp -u username`,
 
 	Run: func(cmd *cobra.Command, args []string) {
 

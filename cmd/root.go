@@ -21,8 +21,8 @@ func Execute() {
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "kyro",
-	Short: "Kyro sets keys and tracks them",
+	Use:   "kyrokey",
+	Short: "Kyrokey sets keys and tracks them",
 	Long:  ``,
 }
 

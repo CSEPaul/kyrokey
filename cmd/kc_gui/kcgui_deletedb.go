@@ -24,7 +24,7 @@ func (ui *UI) ShowDeleteDb() {
 
 		// replace with your real lookup logic
 		result.SetText(
-			"Found secret for: " + comment,
+			"Results: " + comment,
 		)
 	})
 
