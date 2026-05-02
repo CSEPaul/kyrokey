@@ -1,7 +1,7 @@
 package kc_gui
 
 import (
-	"kyrokey/cmd/kc_cli"
+	in "kyrokey/internal"
 
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
@@ -27,7 +27,7 @@ func (ui *UI) ShowGet() {
 		user := userEntry.Text
 		service := serviceEntry.Text
 
-		secret := kc_cli.KcGetCmd(service, user)
+		secret := in.KcGet(service, user)
 
 		// replace with your real lookup logic
 		result.SetText(

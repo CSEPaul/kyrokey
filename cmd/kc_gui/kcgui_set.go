@@ -1,7 +1,7 @@
 package kc_gui
 
 import (
-	"kyrokey/cmd/kc_cli"
+	in "kyrokey/internal"
 
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
@@ -31,7 +31,7 @@ func (ui *UI) ShowSet() {
 		service := serviceEntry.Text
 
 		// call your Cobra/business logic here
-		err := kc_cli.KcSetCmd(service, user, secret)
+		err := in.KcSet(service, user, secret)
 		if err != nil {
 			status.SetText(err.Error())
 			return

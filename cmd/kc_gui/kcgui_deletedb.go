@@ -1,7 +1,7 @@
 package kc_gui
 
 import (
-	"kyrokey/cmd/kc_cli"
+	in "kyrokey/internal"
 
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
@@ -20,7 +20,7 @@ func (ui *UI) ShowDeleteDb() {
 	delBtn := widget.NewButton("Enter", func() {
 
 		confirm := confirmEntry.Text
-		comment := kc_cli.KcDeleteDBCmd(confirm)
+		comment := in.KcDeleteDB(confirm)
 
 		// replace with your real lookup logic
 		result.SetText(

@@ -1,24 +1,12 @@
 package kc_cli
 
 import (
+	in "kyrokey/internal"
 	"os"
-
-	"kyrokey/libs"
 
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/spf13/cobra"
-	"go.uber.org/zap"
 )
-
-func KcGetCmd(service string, user string) string {
-	var secret string
-
-	secret, err := libs.KeyChainGet(service, user)
-	if err != nil {
-		zap.S().Error("failed to get secret: %v", err)
-	}
-	return secret
-}
 
 var KCCliGetCmd = &cobra.Command{
 	Use:     "get",
@@ -30,7 +18,7 @@ var KCCliGetCmd = &cobra.Command{
 		service, _ := cmd.Flags().GetString("service")
 		user, _ := cmd.Flags().GetString("user")
 
-		secret := KcGetCmd(service, user)
+		secret := in.KcGet(service, user)
 
 		t := table.NewWriter()
 		t.SetOutputMirror(os.Stdout)

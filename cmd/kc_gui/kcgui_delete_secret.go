@@ -1,7 +1,7 @@
 package kc_gui
 
 import (
-	"kyrokey/cmd/kc_cli"
+	in "kyrokey/internal"
 
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
@@ -25,7 +25,7 @@ func (ui *UI) ShowDeleteSecret() {
 		user := userEntry.Text
 		service := serviceEntry.Text
 
-		secret := kc_cli.KcDeleteSecretCmd(service, user)
+		secret := in.KcDeleteSecret(service, user)
 
 		// replace with your real lookup logic
 		result.SetText(

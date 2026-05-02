@@ -1,7 +1,7 @@
 package kc_gui
 
 import (
-	"kyrokey/cmd/kc_cli"
+	in "kyrokey/internal"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
@@ -12,7 +12,7 @@ import (
 
 func (ui *UI) ShowList() {
 
-	entries := kc_cli.KcListCmd()
+	entries := in.KcList()
 	table := widget.NewTable(
 
 		// rows + columns
